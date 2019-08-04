@@ -24,14 +24,17 @@
 
 - 対数：$log_{b}k$ とは、k を何回 b で 割ると 1 以下になるかを表す数。自然対数と二進対数は比較可能。
 
-    [![Image from Gyazo](https://i.gyazo.com/bfed0520d3d2398b81a20e7de9fa5f40.png)](https://gyazo.com/bfed0520d3d2398b81a20e7de9fa5f40)
+[![Image from Gyazo](https://i.gyazo.com/bfed0520d3d2398b81a20e7de9fa5f40.png)](https://gyazo.com/bfed0520d3d2398b81a20e7de9fa5f40)
 
 - 階乗：n!の大きさはスターリングの近似を使って見積もることができる。
-    [![Image from Gyazo](https://i.gyazo.com/61ea80ae2206cd01681e8c5ab70668e4.png)](https://gyazo.com/61ea80ae2206cd01681e8c5ab70668e4)
-    [![Image from Gyazo](https://i.gyazo.com/da3ac7f08bd94d279d816613816e1508.png)](https://gyazo.com/da3ac7f08bd94d279d816613816e1508)
+
+[![Image from Gyazo](https://i.gyazo.com/61ea80ae2206cd01681e8c5ab70668e4.png)](https://gyazo.com/61ea80ae2206cd01681e8c5ab70668e4)
+
+[![Image from Gyazo](https://i.gyazo.com/da3ac7f08bd94d279d816613816e1508.png)](https://gyazo.com/da3ac7f08bd94d279d816613816e1508)
 
 - 漸近記法（ビッグオー記法）：ある関数$f(n)$について、次のように定義される関数の集合$O(f (n))$。
-    [![Image from Gyazo](https://i.gyazo.com/345d16bb17924ed9332acaf68b26e2d4.png)](https://gyazo.com/345d16bb17924ed9332acaf68b26e2d4)
+
+[![Image from Gyazo](https://i.gyazo.com/345d16bb17924ed9332acaf68b26e2d4.png)](https://gyazo.com/345d16bb17924ed9332acaf68b26e2d4)
 
 ```
 public static void snippet(int n) {
@@ -51,7 +54,8 @@ $$T(n) = a+b(n+1)+cn+dn+en$$
 $$T (n) = O(n)$$
 
 - 期待実行時間: 乱択アルゴリズムを分析する際に用いる。
-    [![Image from Gyazo](https://i.gyazo.com/8ad908ba07055d1edd894e89d7972c02.png)](https://gyazo.com/8ad908ba07055d1edd894e89d7972c02)
+
+[![Image from Gyazo](https://i.gyazo.com/8ad908ba07055d1edd894e89d7972c02.png)](https://gyazo.com/8ad908ba07055d1edd894e89d7972c02)
 
 ## 1.4 計算モデル
 
