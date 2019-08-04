@@ -30,4 +30,49 @@
     [![Image from Gyazo](https://i.gyazo.com/61ea80ae2206cd01681e8c5ab70668e4.png)](https://gyazo.com/61ea80ae2206cd01681e8c5ab70668e4)
     [![Image from Gyazo](https://i.gyazo.com/da3ac7f08bd94d279d816613816e1508.png)](https://gyazo.com/da3ac7f08bd94d279d816613816e1508)
 
-- 漸近記法：
+- 漸近記法（ビッグオー記法）：ある関数$f(n)$について、次のように定義される関数の集合$O(f (n))$。
+    [![Image from Gyazo](https://i.gyazo.com/345d16bb17924ed9332acaf68b26e2d4.png)](https://gyazo.com/345d16bb17924ed9332acaf68b26e2d4)
+
+```
+public static void snippet(int n) {
+    for (int i = 0; i < n; i++) {
+        a[i] = i;
+    }
+}
+```
+1. 代入1回 (int i = 0)
+2. 比較n+1回 (i < n)
+3. インクリメントn回 (i++)
+4. 配列のオフセット計算n回 (a[i])
+5. 間接代入n回 (a[i]=i)
+
+$$T(n) = a+b(n+1)+cn+dn+en$$
+
+$$T (n) = O(n)$$
+
+- 期待実行時間: 乱択アルゴリズムを分析する際に用いる。
+    [![Image from Gyazo](https://i.gyazo.com/8ad908ba07055d1edd894e89d7972c02.png)](https://gyazo.com/8ad908ba07055d1edd894e89d7972c02)
+
+## 1.4 計算モデル
+
+- w ビットのワードRAM(word-RAM)モデル: ワード幅 w において、データ構造に格納されうる要素数がnであれば$w > logn$と仮定する。
+
+## 1.5 正しさ、時間計算量、空間計算量
+
+### 性能
+
+- 正しさ: データ構造はそのインターフェースを正しく実装しなければならない。
+
+- 時間計算量(time complexity): データ構造における操作の実行時間は短いほどよい。
+
+- 空間計算量(space complexity): データ構造のメモリ使用量は小さいほどよい。
+
+### 実行時間の議論
+
+- 最悪実行時間(worst-case running time): 実行時間に対する保証の中で、最も強力なもの。
+
+- 償却実行時間(amortized running time): 償却実行時間が $f(n)$であるとは、典型的な操作にかかるコストが $f(n)$超えな いことを意味する。より正確には、$m$ 個の操作にかかる実行時間を合計しても、 $mf(n)$を超えないことを意味する
+
+- 期待実行時間(expected running time): 実行時間が確率変数であり、 その確率変数の期待値が$f(n)$であることを意味する。
+
+
