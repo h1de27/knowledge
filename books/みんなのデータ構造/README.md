@@ -75,7 +75,7 @@ $$T (n) = O(n)$$
 
 - 最悪実行時間(worst-case running time): 実行時間に対する保証の中で、最も強力なもの。
 
-- 償却実行時間(amortized running time): 償却実行時間が $f(n)$であるとは、典型的な操作にかかるコストが $f(n)$超えな いことを意味する。より正確には、$m$ 個の操作にかかる実行時間を合計しても、 $mf(n)$を超えないことを意味する
+- 償却実行時間(amortized running time): 償却実行時間が $f(n)$であるとは、典型的な操作にかかるコストが $f(n)$超えないことを意味する。より正確には、$m$ 個の操作にかかる実行時間を合計しても、 $mf(n)$を超えないことを意味する
 
 - 期待実行時間(expected running time): 実行時間が確率変数であり、 その確率変数の期待値が$f(n)$であることを意味する。
 
@@ -162,7 +162,7 @@ T find(Object x) {
 乗算ハッシュ法では、ある整数 $d$ について、大きさ $2^d$ であるハッシュテーブルを使う。整数 $d$ は次数(dimension)と呼ばれる。整数 $x ∈ \{0,...,2
 w −1\}$のハッシュ値は次のように計算する。
 
-$hash(x) = ((z · x) mod 2w)div 2^{w−d}$
+$hash(x) = ((z · x) mod 2^w)div 2^{w−d}$
 
 ここで、z は奇数の集合 $\{1,3,5,...,2w − 1\}$ からランダムに選択する。整数のビット数を w とするとき、整数の演算の結果は $2^w$ を法として合同になる。
 
@@ -170,7 +170,18 @@ $hash(x) = ((z · x) mod 2w)div 2^{w−d}$
 
 ```java
 int hash(Object x) {
-    return (z * x.hashCode()) >>> (w-d);
+    return ((unsigned) (z * x % Math.pow(2, w))) >> (w-d);
+}
+```
+
+例:
+```java
+int hash (int x) {
+    int x = 42;
+    int w = 32;
+    int d = 8;
+    long z = 4102541685l;
+    return (long) (z * x % Math.pow(2, 32)) >> (w-d);
 }
 ```
 
@@ -270,7 +281,7 @@ void resize() {
 }
 ```
 
-オープンアドレス法においては、ハッシュ値が $\{0, . . . , t.length − 1\}$ の範囲の一様な確率分布に従う独 立な値であると仮定する。=> Tabulation Hashing
+オープンアドレス法においては、ハッシュ値が $\{0, . . . , t.length − 1\}$ の範囲の一様な確率分布に従う独立な値であると仮定する。=> Tabulation Hashing
 
 
 ### 要約
@@ -280,11 +291,11 @@ resize() のコストを無視すると、LinearHashTable における add(x)、
 
 ### Tabulation Hashing
 
-大きさ 2w の巨大な配列 tab を準備し、すべてのエントリを互いに独 立なwビットのランダムな整数で初期化するというものがある。こうしておけば、 tab[x.hashCode()] から d ビットの整数を取り出すことで hash(x) を実装できる。
+大きさ 2w の巨大な配列 tab を準備し、すべてのエントリを互いに独立なwビットのランダムな整数で初期化するというものがある。こうしておけば、 tab[x.hashCode()] から d ビットの整数を取り出すことで hash(x) を実装できる。
 
 ```java
 int idealHash(T x) {
-    return tab[x.hashCode() >>> w-d];
+    return tab[hashCode(x) >> w-d];
 }
 ```
 
@@ -294,13 +305,23 @@ int idealHash(T x) {
 int hash(T x) {
     int h = x.hashCode();
     return (tab[0][h&0xff]
-            ˆ tab[1][(h>>>8)&0xff]
-            ˆ tab[2][(h>>>16)&0xff]
-            ˆ tab[3][(h>>>24)&0xff])
-            >>> (w-d);
+            ˆ tab[1][(h>>8)&0xff]
+            ˆ tab[2][(h>>16)&0xff]
+            ˆ tab[3][(h>>24)&0xff])
+            >> (w-d);
 }
 ```
 
 この場合、tabは4つの列と28 =256の行からなる二次元配列となる。
 任意の x について hash(x) が {0, . . . , 2d − 1} の値を一様な確率で取ることは簡単に検証できる。
+
+## 5.4 ディスカッション
+
+上記とは別のハッシュテーブルの実装として、完全ハッシュ法と呼ばれる種類のものがある。完全ハッシュ法では、find(x) の実行時間が、最悪の場 合でも O(1) となる。
+
+Dos攻撃にも使われる。
+https://www.usenix.org/legacy/events/sec03/tech/full_papers/crosby/crosby.pdf
+
+
+
 
